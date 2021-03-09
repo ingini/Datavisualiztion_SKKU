@@ -1,6 +1,6 @@
 # Datavisualiztion_SKKU
 
-## _Brief description about the dataset_
+_Brief description about the dataset_
 
 - How big is your dataset ?
 - What is the type of your dataset (dataset type)? 
