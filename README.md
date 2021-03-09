@@ -10,4 +10,6 @@ _Brief description about the dataset_
 - For each quantitative attribute, list its type (interval or ratio) and ordering direction, range, and meaning.
 - Separate the attributes into keys and values.
 
-✨
+
+## Abstraction result
+✨ 
