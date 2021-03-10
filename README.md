@@ -15,12 +15,18 @@ _Brief description about the dataset_
 ✨ Dataset type : Financial Data
 
 ✨DATAINFO
+
+
 ![DATAINFO](./datasets/datainfo.JPG)
 
 ✨DATATYPE
+
+
 ![DATATYPE](./datasets/AttributeTypes.JPG)
 
 ✨DATAVIEWER
+
+
 ![DATAVIEW](./datasets/dataview.JPG)
 
 
