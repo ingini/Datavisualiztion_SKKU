@@ -19,6 +19,11 @@ _Brief description about the dataset_
 
 ![DATAINFO](./datasets/datainfo.JPG)
 
+
+✨DISCRIPTION
+![DATADISCRIPTION](./datasets/Discription.JPG)
+
+
 ✨DATATYPE
 
 
