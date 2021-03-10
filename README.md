@@ -12,4 +12,4 @@ _Brief description about the dataset_
 
 
 ## Abstraction result
-✨ 
+✨ ![DATAINFO](./datasets/datainfo.JPG)
