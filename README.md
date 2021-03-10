@@ -14,13 +14,13 @@ _Brief description about the dataset_
 ## Abstraction result
 ✨ Dataset type : Financial Data
 
-✨ 
+
 ![DATAINFO](./datasets/datainfo.JPG)
 
-✨
+
 ![DATATYPE](./datasets/AttributeTypes.JPG)
 
-✨
+
 ![DATAVIEW](./datasets/dataview.JPG)
 
 
