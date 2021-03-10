@@ -12,13 +12,15 @@ _Brief description about the dataset_
 
 
 ## Abstraction result
+✨ Dataset type : Financial Data
+
 ✨ 
 ![DATAINFO](./datasets/datainfo.JPG)
-
-✨ Dataset type : Interval data
 
 ✨
 ![DATATYPE](./datasets/AttributeTypes.JPG)
 
 ✨
-![DATA](./datasets/dataview.JPG)
+![DATAVIEW](./datasets/dataview.JPG)
+
+
