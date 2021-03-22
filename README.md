@@ -36,4 +36,6 @@ _Brief description about the dataset_
 
 ![DATAVIEW](./datasets/dataview.JPG)
 
-
+![DATAVIEW](./datasets/그림1.png)
+![DATAVIEW](./datasets/그림2.png)
+![DATAVIEW](./datasets/그림3.png)
