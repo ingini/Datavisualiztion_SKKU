@@ -37,14 +37,16 @@ _Brief description about the dataset_
 ![DATAVIEW](./datasets/dataview.JPG)
 
 
-Why do you want to perform each task?
+_Why do you want to perform each task?_
 -	Finding reasons for popular ETF products
-What is the possible outcome of each task?
--	1. AUM 와 Expense Ratio 의 SIZE에 따른 Grade 
--	2. Category와 날짜별 AUM size 증감 비교
--	3. Asset Class와 등급별 Risk 
+_What is the possible outcome of each task?_
+	1. AUM 와 Expense Ratio 의 SIZE에 따른 Grade 
+	2. Category와 날짜별 AUM size 증감 비교
+	3. Asset Class와 등급별 Risk 
 Abstract each task using a pair of action + target 
--	1.Grade&(AUM,Expense Ratio) 2. Date&Trade (Category) 3. Grade&Asset Class(Fund Closure Risk)
+	1.Grade&(AUM,Expense Ratio) 
+	2. Date&Trade (Category) 
+	3. Grade&Asset Class(Fund Closure Risk)
 
 ![DATAVIEW](./datasets/그림1.png)
 ![DATAVIEW](./datasets/그림2.png)
