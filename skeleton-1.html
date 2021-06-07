@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Assignment</title>
+</head>
+
+<body>
+  <div>
+    X:
+    <select id="x-variable">
+      <option value="petal.length" selected>Petal Length</option>
+      <option value="petal.width">Petal Width</option>
+      <option value="sepal.length">Sepal Length</option>
+      <option value="sepal.width">Sepal Width</option>
+    </select>
+  </div>
+  <div>
+    Y:
+    <select id="y-variable">
+      <option value="petal.length">Petal Length</option>
+      <option value="petal.width" selected>Petal Width</option>
+      <option value="sepal.length">Sepal Length</option>
+      <option value="sepal.width">Sepal Width</option>
+    </select>
+  </div>
+  <div>
+    Scale:
+    <select id="scale">
+      <option value="linear" selected>Linear scale</option>
+      <option value="log">Log scale</option>
+    </select>
+  </div>
+
+  <svg id="svg1"></svg> <!-- svg for the scatterplot -->
+  <svg id="svg2"></svg> <!-- svg for the horizontal bar chart -->
+
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script>
+    let data;
+    let varieties = ["Setosa", "Versicolor", "Virginica"];
+
+    const scatterplot = (function () {
+      let svg, container, xAxis, yAxis;
+      let width = 400, height = 400;
+      let margin = { top: 10, right: 10, bottom: 40, left: 40 };
+
+      function initialize() {
+        svg = d3.select("#svg1");
+        container = svg.append("g");
+        xAxis = svg.append("g");
+        yAxis = svg.append("g");
+        legend = svg.append("g");
+
+        zScale = d3.scaleOrdinal().domain(varieties).range(d3.schemeCategory10);
+
+        svg
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom);
+
+        container.attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+        d3.select("#x-variable").on("change.sc", update);
+        d3.select("#y-variable").on("change.sc", update);
+        d3.select("#scale").on("change.sc", update);
+      }
+
+      function update() {
+        let xVar = d3.select("#x-variable").node().value;
+        let yVar = d3.select("#y-variable").node().value;
+        let scaleType = d3.select("#scale").node().value;
+
+        /*
+          TODO 1
+          xScale 변수와 yScale 변수에 scale을 만들어 대입하세요.
+          xVar, yVar, scaleType에 따라 scale이 달라져야 합니다.
+        */
+        xScale = d3.scaleLinear().domain(d3.extent(data, d => d[xVar])).range([0,width]) ; /**/
+        yScale = d3.scaleLinear().domain(d3.extent(data, d => d[yVar])).range([height,0]) ; /**/
+
+        container.selectAll("circle")
+          .data(data)
+          .join("circle")
+          .transition()
+          .attr("cx", d => xScale(d[xVar]))
+          .attr("cy", d => yScale(d[yVar]))
+          .attr("fill", d => zScale(d.variety))
+          .attr("r", 3)
+
+        xAxis
+          .attr("transform", `translate(${margin.left}, ${margin.top + height})`)
+          .transition()
+          .call(d3.axisBottom(xScale));
+
+        yAxis
+          .attr("transform", `translate(${margin.left}, ${margin.top})`)
+          .transition()
+          .call(d3.axisLeft(yScale));
+      }
+
+      return { initialize, update }
+    })();
+
+    const barchart = (function () {
+      let svg, container, xAxis, yAxis;
+      let width = 400, height = 400;
+      let margin = { top: 10, right: 10, bottom: 40, left: 60 };
+
+      function initialize() {
+        svg = d3.select("#svg2");
+        container = svg.append("g");
+        xAxis = svg.append("g");
+        yAxis = svg.append("g");
+        legend = svg.append("g");
+
+        zScale = d3.scaleOrdinal().domain(varieties).range(d3.schemeCategory10);
+
+        svg
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom);
+
+        container.attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+        d3.select("#x-variable").on("change.bar", update);
+        d3.select("#scale").on("change.bar", update);
+      }
+
+      function update() {
+        let xVar = d3.select("#x-variable").node().value;
+        let scaleType = d3.select("#scale").node().value;
+
+        let meanData = varieties.map(v => {
+          return {
+            variety: v,
+            mean: d3.mean(data.filter(d => d.variety === v), d => d[xVar])
+          }
+        })
+
+        /* 
+          TODO 2 
+          xScale 변수에 scale을 만들어 대입하세요.
+          xVar, scaleType에 따라 scale이 달라져야 합니다.
+        */
+        xScale = d3.scaleLinear().domain([0, d3.max(meanData, d=> d.mean)]).range([0,width]); /*  d3.scaleBand().domain(varieties).range([width,0]).padding(0.3)*/
+        yScale = d3.scaleBand().domain(varieties).range([0, height]).padding(0.3); /*   d3.scaleBand().domain(varieties).range([0, height]).padding(0.3)*/
+		
+		/*
+          TODO 3
+          가로 막대 그래프를 그리기 위해 아래 빈 곳을 채우세요. 
+        */
+        container.selectAll("rect")
+          .data(meanData)
+          .join("rect")
+          .transition()
+          .attr("x", d => xScale(0)) /**/
+          .attr("y", d => yScale(d.variety)) /*y bar의 시작 높이*/
+          .attr("width", d => xScale(d.mean)-xScale(0)) /**/
+          .attr("height", yScale.bandwidth()) /**/
+          .attr("fill", d => zScale(d.variety))
+
+        xAxis
+          .attr("transform", `translate(${margin.left}, ${margin.top + height})`)
+          .transition()
+          .call(d3.axisBottom(xScale)); 
+
+        yAxis
+          .attr("transform", `translate(${margin.left}, ${margin.top})`)
+          .transition()
+          .call(d3.axisLeft(yScale));
+      }
+
+      return { initialize, update }
+    })();
+
+
+    d3.csv("https://gist.githubusercontent.com/netj/8836201/raw/6f9306ad21398ea43cba4f7d537619d0e07d5ae3/iris.csv")
+      .then(csvData => {
+        csvData.forEach(d => {
+          d["petal.length"] = +d["petal.length"];
+          d["petal.width"] = +d["petal.width"];
+          d["sepal.length"] = +d["sepal.length"];
+          d["sepal.width"] = +d["sepal.width"];
+        });
+
+        data = csvData;
+        scatterplot.initialize();
+        scatterplot.update();
+        barchart.initialize();
+        barchart.update();
+      })
+
+  </script>
+</body>
+
+</html>
